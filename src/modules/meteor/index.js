@@ -121,7 +121,8 @@ export function push(api) {
           sslConfig: config.ssl,
           logConfig: config.log,
           volumes: config.volumes,
-          docker: config.docker
+          docker: config.docker,
+          image: config.dockerImage || 'steffow/meteord-node4:base'
         }
       });
 
