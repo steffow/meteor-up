@@ -89,8 +89,9 @@ export function push(api) {
 
   var buildOptions = config.buildOptions || {};
   buildOptions.buildLocation = buildOptions.buildLocation || path.resolve('/tmp', uuid.v4());
-
+  console.log('MUP (Steffo\'s version)');
   console.log('Building App Bundle Locally');
+
 
   var bundlePath = path.resolve(buildOptions.buildLocation, 'bundle.tar.gz');
   const appPath = path.resolve(api.getBasePath(), config.path);
@@ -122,6 +123,7 @@ export function push(api) {
           logConfig: config.log,
           volumes: config.volumes,
           docker: config.docker,
+          dockerBindIP: config.dockerBindIP || '127.0.0.1',
           image: config.dockerImage || 'steffow/meteord-node4:base'
         }
       });
@@ -173,7 +175,8 @@ export function start(api) {
   list.executeScript('Start Meteor', {
     script: path.resolve(__dirname, 'assets/meteor-start.sh'),
     vars: {
-      appName: config.name
+      appName: config.name,
+      dockerBindIP: config.dockerBindIP
     }
   });
 
@@ -182,7 +185,8 @@ export function start(api) {
     vars: {
       deployCheckWaitTime: config.deployCheckWaitTime || 60,
       appName: config.name,
-      port: config.env.PORT || 80
+      port: config.env.PORT || 80,
+      rootURL: config.env.ROOT_URL
     }
   });
 

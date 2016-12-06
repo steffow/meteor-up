@@ -1,0 +1,4 @@
+To install locally:
+
+cd steffo-meteor-app
+npm install && npm run prepublish && npm link

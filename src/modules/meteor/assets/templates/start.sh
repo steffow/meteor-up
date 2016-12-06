@@ -5,6 +5,7 @@ APP_PATH=/opt/$APPNAME
 BUNDLE_PATH=$APP_PATH/current
 ENV_FILE=$APP_PATH/config/env.list
 PORT=<%= port %>
+DOCKERBINDIP=<%= dockerBindIP %> || 127.0.0.1
 
 # Remove previous version of the app, if exists
 docker rm -f $APPNAME
@@ -17,10 +18,12 @@ set +e
 docker pull <%= docker.image %>
 set -e
 
+echo "Starting with " $DOCKERBINDIP:$PORT
+
 docker run \
   -d \
   --restart=always \
-  --publish=$PORT:80 \
+  --publish=$DOCKERBINDIP:$PORT:80 \
   --volume=$BUNDLE_PATH:/bundle \
   --hostname="$HOSTNAME-$APPNAME" \
   --env-file=$ENV_FILE \
