@@ -123,7 +123,7 @@ export function push(api) {
           logConfig: config.log,
           volumes: config.volumes,
           docker: config.docker,
-          dockerBindIP: config.dockerBindIP || '127.0.0.1',
+          dockerBindIP: config.dockerBindIP || '127.0.0.1'
           image: config.dockerImage || 'steffow/meteord-node4:base'
         }
       });
